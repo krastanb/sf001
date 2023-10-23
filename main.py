@@ -1,13 +1,21 @@
+def hello():
+    print("Приветствуем Вас в игре крестики нолики!")
+    print("----------------------------------------")
+    print("""Для хода указывайте сначала номер столбца
+(по вертикали), а затем номер строки (по
+горизонтали)""")
+    print()
+
 def printXO():
-    print('  0 1 2')
+    print('    0   1   2')
+    print('  '+'-'*13)
     for i, row in enumerate(data):
-        print(i, *row)
+        print(i, *row, sep=' | ', end=' |\n')
+        print('  '+'-'*13)
         
 def cleardata():
     global data
-    data = [['-','-','-'],  # поле 
-            ['-','-','-'],
-            ['-','-','-']]
+    data = [['-']*3 for i in range(3)]
 
 def checkwin():
     wincomb = (((0,0), (1,0), (2,0)), ((0,1), (1,1), (2,1)), ((0,2), (1,2), (2,2)),
@@ -18,6 +26,7 @@ def checkwin():
         b = data[comb[1][0]][comb[1][1]]
         c = data[comb[2][0]][comb[2][1]]
         if (data[comb[0][0]][comb[0][1]]==data[comb[1][0]][comb[1][1]]==data[comb[2][0]][comb[2][1]]) and a !='-':
+            printXO()
             print('Выиграли', a)
             return 1
 
@@ -37,7 +46,7 @@ def checkxy():
             print('Координат должно быть 2!')
             continue
         y, x = strings
-        if not(x.isdigit() and y.isdigit):
+        if not(x.isdigit() and y.isdigit()):
             print('Введите числа!')
             continue
         y, x = list(map(int, strings))
@@ -49,7 +58,9 @@ def checkxy():
             continue
         break
     return y,x
-                
+
+
+hello()                
 move = 0 # счетчик ходов
 moves = (0,1,2) # проверка 
 cleardata()
